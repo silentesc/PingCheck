@@ -1,5 +1,3 @@
-# !!! IN ACTIVE DEVELOPMENT !!!
-
 ## Installation
 - Clone the code
 - Execute `pip install -r requirements`
