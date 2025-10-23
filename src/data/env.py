@@ -28,6 +28,10 @@ class Env:
         return self.__get_var("PING_INTERVAL_SEC")
 
 
+    def get_ping_timeout_sec(self) -> str:
+        return self.__get_var("PING_TIMEOUT_SEC")
+
+
     def get_webhook_url(self) -> str:
         return self.__get_var("WEBHOOK_URL")
 
