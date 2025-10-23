@@ -11,8 +11,8 @@ def start_monitor(ip: str) -> None:
     logger.info(f"Monitoring for {ip!r} has been started")
     is_reachable: bool = True
     while True:
-        is_ping_success = IpUtils.ping_host(ip)
-        logger.trace(f"Ping for {ip!r} {"succeeded" if is_ping_success else "failed"}")
+        start: float = time.monotonic()
+        is_ping_success = IpUtils.hybrid_check(ip)
         if is_ping_success != is_reachable:
             is_reachable = is_ping_success
             if is_ping_success:
@@ -21,7 +21,13 @@ def start_monitor(ip: str) -> None:
             else:
                 logger.info(f"Host with IP `{ip}` is offline!")
                 DiscordWebhookUtils.send_webhook_embed(EmbedColor.RED, "Host offline", description=f"Host with IP `{ip}` is offline!")
-        time.sleep(int(env.get_ping_interval_sec()))
+        elapsed_sec: float = time.monotonic() - start
+        remaining_sec: float = int(env.get_ping_interval_sec()) - elapsed_sec
+        if remaining_sec > 0:
+            logger.trace(f"Sleeping for remaining {remaining_sec} seconds")
+            time.sleep(remaining_sec)
+        else:
+            time.sleep(1)
 
 
 def main() -> int:
