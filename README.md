@@ -1,5 +1,6 @@
 ## Installation
 - Clone the code
+- (Recommended but not required) Create python venv `python -m venv /path/to/new/virtual/environment`
 - Execute `pip install -r requirements`
 - Create a `.env` file
 
