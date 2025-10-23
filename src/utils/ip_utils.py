@@ -3,6 +3,8 @@ import subprocess
 import platform
 from loguru import logger
 
+from src import env
+
 
 class IpUtils:
     @staticmethod
@@ -33,9 +35,9 @@ class IpUtils:
 
         match (platform.system().lower()):
             case "windows":
-                command = ["ping", "-n", "1", "-w", "1000", ip]
+                command = ["ping", "-n", "1", "-w", f"{env.get_ping_timeout_sec()}000", ip]
             case _:
-                command = ["ping", "-c", "1", "-W", "1", ip]
+                command = ["ping", "-c", "1", "-W", env.get_ping_timeout_sec(), ip]
 
         try:
             result = subprocess.run(
