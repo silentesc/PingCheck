@@ -25,7 +25,7 @@ class IpUtils:
 
 
     @staticmethod
-    def tcp_check(ip: str, port: int = 22) -> bool:
+    def tcp_check(ip: str, port: int = 80) -> bool:
         """
         Trys to create tcp connection to a host on port to check for connectivity
         Args:
